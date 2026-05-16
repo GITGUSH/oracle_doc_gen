@@ -1,0 +1,11 @@
+config.py
+
+output/
+
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+.vscode/
+.idea/
