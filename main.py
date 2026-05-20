@@ -1,6 +1,6 @@
 import oracledb
 import config
-from extractor.tables import extrairTabela
+from extractor.tables import extrairTabelas
 
 
 def conectar():
@@ -26,11 +26,14 @@ def main():
     con = conectar()
     cursor = con.cursor()
 
-    tabelas = extrairTabela(cursor)
+    tabelas = extrairTabelas(cursor)
 
     print(f"Total de tabelas encontradas: {len(tabelas)}")
     for t in tabelas:
         print(f"-> {t['nome']} ({t['num_rows']} registros)")
+        for col in t['colunas']:
+            print(f"  {col['nome']} | {col['tipo']}({col['tamanho']}) | Nulável: {col['nulavel']}")
+        print()
 
     cursor.close()
     con.close()
