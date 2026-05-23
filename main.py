@@ -3,6 +3,7 @@ import config
 from extractor.tables import extrairTabelas
 from extractor.views import extrairViews
 from extractor.procedures import extrairProcedures
+from extractor.functions import extrairFunctions
 
 
 def conectar():
@@ -33,6 +34,7 @@ def main():
     print("1 - Tabelas")
     print("2 - Views")
     print("3 - Procedures")
+    print("4 - Functions")
     op = int(input("Informe a opção desejada: "))
     print()
     
@@ -77,11 +79,24 @@ def main():
                     print(f"    [DEP] {dep['nome']} ({dep['tipo']})")
                 print()
 
+        elif op == 4:
+            functions = extrairFunctions(cursor)
+            print(f"Total de functions: {len(functions)}\n")
+            for f in functions:
+                print(f"  → {f['nome']} | Status: {f['status']}")
+                for arg in f['argumentos']:
+                    print(f"    [{arg['direcao']}] {arg['nome']} | {arg['tipo']}")
+                for dep in f[f"dependencias"]:
+                    print(f"    [DEP] {dep['nome']} ({dep['tipo']})")
+                print()
+
+
         print("MENU")
         print("0 - Sair")
         print("1 - Tabelas")
         print("2 - Views")
         print("3 - Procedures")
+        print("4 - Functions")
         op = int(input("Informe a opção desejada: "))
         print()
 
