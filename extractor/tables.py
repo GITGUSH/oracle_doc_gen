@@ -26,6 +26,37 @@ def extrairColunas(cursor, nome_tabela):
         })
     return colunas 
 
+def extrairConstraints(cursor, nome_tabela):
+    cursor.execute("""
+        SELECT
+            c.constraint_name,
+            c.constraint_type,
+            cc.column_name,
+            c.r_constraint_name,
+            rc.table_name as tabela_referenciada
+        FROM user_constraints c
+        JOIN user_cons_columns cc 
+            ON c.constraint_name = cc.constraint_name
+        LEFT JOIN user_constraints rc 
+            ON c.r_constraint_name = rc.constraint_name
+        WHERE c.table_name = :tabela
+          AND c.constraint_type IN ('P', 'R')
+        ORDER BY c.constraint_type, cc.position
+    """, tabela=nome_tabela)
+
+    constraints = []
+
+    for row in cursor.fetchall():
+        constraints.append({
+            "nome": row[0],
+            "tipo": "PK" if row[1] == "P" else "FK",
+            "coluna": row[2],
+            "ref_constraint": row[3],
+            "tabela_ref": row[4]
+        })
+    
+    return constraints
+
 
 def extrairTabelas(cursor):
     cursor.execute("""
@@ -55,7 +86,8 @@ def extrairTabelas(cursor):
             "nome": nome,
             "status": status,
             "num_rows": total,
-            "colunas": colunas
+            "colunas": colunas,
+            "constraints": extrairConstraints(cursor, nome) #Appenda as constraints nas tabelas
         })
 
     return tabelas
