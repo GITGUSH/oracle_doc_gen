@@ -5,7 +5,7 @@ from extractor.views import extrairViews
 from extractor.procedures import extrairProcedures
 from extractor.functions import extrairFunctions
 from extractor.packages import extrairPackages
-
+from extractor.triggers import extrairTriggers
 
 def conectar():
     conexao = oracledb.connect(
@@ -37,6 +37,7 @@ def main():
     print("3 - Procedures")
     print("4 - Functions")
     print("5 - Packages")
+    print("6 - Triggers")
     op = int(input("Informe a opção desejada: "))
     print()
     
@@ -104,7 +105,16 @@ def main():
                 for dep in p['dependencias']:
                     print(f"    [DEP] {dep['nome']} ({dep['tipo']})")
                 print()
-
+        elif op == 6:
+            triggers = extrairTriggers(cursor)
+            print(f"Total de triggers: {len(triggers)}\n")
+            for t in triggers:
+                print(f"  → {t['nome']} | {t['tipo']} | Evento: {t['evento']} | Tabela: {t['tabela']} | Status: {t['status']}")
+                for dep in t['dependencias']:
+                    print(f"    [DEP] {dep['nome']} ({dep['tipo']})")
+                print()
+        
+        print()
         print("MENU")
         print("0 - Sair")
         print("1 - Tabelas")
@@ -112,6 +122,7 @@ def main():
         print("3 - Procedures")
         print("4 - Functions")
         print("5 - Packages")
+        print("6 - Triggers")
         op = int(input("Informe a opção desejada: "))
         print()
 
