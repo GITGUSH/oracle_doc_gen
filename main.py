@@ -4,6 +4,7 @@ from extractor.tables import extrairTabelas
 from extractor.views import extrairViews
 from extractor.procedures import extrairProcedures
 from extractor.functions import extrairFunctions
+from extractor.packages import extrairPackages
 
 
 def conectar():
@@ -35,6 +36,7 @@ def main():
     print("2 - Views")
     print("3 - Procedures")
     print("4 - Functions")
+    print("5 - Packages")
     op = int(input("Informe a opção desejada: "))
     print()
     
@@ -89,7 +91,19 @@ def main():
                 for dep in f[f"dependencias"]:
                     print(f"    [DEP] {dep['nome']} ({dep['tipo']})")
                 print()
-
+        
+        elif op == 5:
+            packages = extrairPackages(cursor)
+            print(f"Total de packages: {len(packages)}\n")
+            for p in packages:
+                print(f"  → {p['nome']} | Status: {p['status']}")
+                for sub in p['subprogramas']:
+                    print(f"    [SUB] {sub['nome']}")
+                    for arg in sub['argumentos']:
+                        print(f"      [{arg['direcao']}] {arg['nome']} | {arg['tipo']}")
+                for dep in p['dependencias']:
+                    print(f"    [DEP] {dep['nome']} ({dep['tipo']})")
+                print()
 
         print("MENU")
         print("0 - Sair")
@@ -97,6 +111,7 @@ def main():
         print("2 - Views")
         print("3 - Procedures")
         print("4 - Functions")
+        print("5 - Packages")
         op = int(input("Informe a opção desejada: "))
         print()
 
