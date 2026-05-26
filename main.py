@@ -8,6 +8,7 @@ from extractor.packages import extrairPackages
 from extractor.triggers import extrairTriggers
 from extractor.types import extrairTypes
 from extractor.indexes import extrairIndexes
+from extractor.sequences import extrairSequences
 
 def conectar():
     conexao = oracledb.connect(
@@ -42,6 +43,7 @@ def main():
     print("6 - Triggers")
     print("7 - Types")
     print("8 - Indexes")
+    print("9 - Sequences")
     op = int(input("Informe a opção desejada: "))
     print()
     
@@ -149,6 +151,13 @@ def main():
                 for col in i['colunas']:
                     print(f"    {col['nome']} | Posição: {col['posicao']} | Ordem: {col['ordem']}")   
                 print()
+
+        elif op == 9:
+            sequences = extrairSequences(cursor)
+            print(f"Total de sequences: {len(sequences)}\n")
+            for s in sequences:
+                print(f"  → {s['nome']} | Incremento: {s['incremento']} | Último valor: {s['ultimo_valor']} | Cíclico: {s['ciclico']}")
+                print()
         
         print()
         print("MENU")
@@ -161,6 +170,7 @@ def main():
         print("6 - Triggers")
         print("7 - Types")
         print("8 - Indexes")
+        print("9 - Sequences")
         op = int(input("Informe a opção desejada: "))
         print()
 
