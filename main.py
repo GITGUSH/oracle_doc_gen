@@ -7,6 +7,7 @@ from extractor.functions import extrairFunctions
 from extractor.packages import extrairPackages
 from extractor.triggers import extrairTriggers
 from extractor.types import extrairTypes
+from extractor.indexes import extrairIndexes
 
 def conectar():
     conexao = oracledb.connect(
@@ -40,6 +41,7 @@ def main():
     print("5 - Packages")
     print("6 - Triggers")
     print("7 - Types")
+    print("8 - Indexes")
     op = int(input("Informe a opção desejada: "))
     print()
     
@@ -138,6 +140,16 @@ def main():
                     print(f"    [DEP] {dep['nome']} ({dep['tipo']})")
                 print()
         
+        elif op == 8:
+            indexes = extrairIndexes(cursor)
+            print(f"Total de indexes: {len(indexes)}\n")
+            for i in indexes:
+                print(f"  → {i['nome']} | Tabela: {i['tabela']} | Tipo: {i['tipo']} | Único: {i['unico']} | Status: {i['status']}")
+
+                for col in i['colunas']:
+                    print(f"    {col['nome']} | Posição: {col['posicao']} | Ordem: {col['ordem']}")   
+                print()
+        
         print()
         print("MENU")
         print("0 - Sair")
@@ -148,6 +160,7 @@ def main():
         print("5 - Packages")
         print("6 - Triggers")
         print("7 - Types")
+        print("8 - Indexes")
         op = int(input("Informe a opção desejada: "))
         print()
 
