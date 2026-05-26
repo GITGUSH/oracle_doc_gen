@@ -11,6 +11,7 @@ from extractor.indexes import extrairIndexes
 from extractor.sequences import extrairSequences
 from extractor.synonyms import extrairSynonyms
 from extractor.jobs import extrairJobs
+from extractor.dependencies import extrairDependencies, agruparDependencias
 
 def conectar():
     conexao = oracledb.connect(
@@ -48,6 +49,7 @@ def main():
     print("9 - Sequences")
     print("10 - Synonyms")
     print("11 - Jobs")
+    print("12 - Dependências")  
     op = int(input("Informe a opção desejada: "))
     print()
     
@@ -182,6 +184,17 @@ def main():
                 print(f"    Execuções: {j['qtd_execucoes']} | Falhas: {j['qtd_falhas']}")
                 print()
 
+        elif op == 12:
+            dependencias = extrairDependencies(cursor)
+            grafo = agruparDependencias(dependencias)
+
+            print(f"Total de objetos com dependências: {len(grafo)}\n")
+            for nome, info in grafo.items():
+                print(f"  → {nome} ({info['tipo']})")
+                for dep in info['depende_de']:
+                    print(f"    depende de: {dep['owner']}.{dep['nome']} ({dep['tipo']})")
+                print()
+
         print()
         print("MENU")
         print("0 - Sair")
@@ -196,6 +209,7 @@ def main():
         print("9 - Sequences")
         print("10 - Synonyms")
         print("11 - Jobs")
+        print("12 - Dependências")
         op = int(input("Informe a opção desejada: "))
         print()
 
