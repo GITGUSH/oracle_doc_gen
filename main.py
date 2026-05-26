@@ -9,6 +9,7 @@ from extractor.triggers import extrairTriggers
 from extractor.types import extrairTypes
 from extractor.indexes import extrairIndexes
 from extractor.sequences import extrairSequences
+from extractor.synonyms import extrairSynonyms
 
 def conectar():
     conexao = oracledb.connect(
@@ -44,6 +45,7 @@ def main():
     print("7 - Types")
     print("8 - Indexes")
     print("9 - Sequences")
+    print("10 - Synonyms")
     op = int(input("Informe a opção desejada: "))
     print()
     
@@ -159,6 +161,15 @@ def main():
                 print(f"  → {s['nome']} | Incremento: {s['incremento']} | Último valor: {s['ultimo_valor']} | Cíclico: {s['ciclico']}")
                 print()
         
+        elif op == 10:
+            synonyms = extrairSynonyms(cursor)
+            print(f"Total de synonyms: {len(synonyms)}\n")
+            for s in synonyms:
+                print(f"  → {s['nome']} | Aponta para: {s['owner_referenciado']}.{s['objeto_referenciado']}", end="")
+                if s['db_link']:
+                    print(f" | DB Link: {s['db_link']}", end="")
+                print()
+
         print()
         print("MENU")
         print("0 - Sair")
@@ -171,6 +182,7 @@ def main():
         print("7 - Types")
         print("8 - Indexes")
         print("9 - Sequences")
+        print("10 - Synonyms")
         op = int(input("Informe a opção desejada: "))
         print()
 
