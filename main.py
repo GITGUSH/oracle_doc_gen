@@ -6,6 +6,7 @@ from extractor.procedures import extrairProcedures
 from extractor.functions import extrairFunctions
 from extractor.packages import extrairPackages
 from extractor.triggers import extrairTriggers
+from extractor.types import extrairTypes
 
 def conectar():
     conexao = oracledb.connect(
@@ -38,6 +39,7 @@ def main():
     print("4 - Functions")
     print("5 - Packages")
     print("6 - Triggers")
+    print("7 - Types")
     op = int(input("Informe a opção desejada: "))
     print()
     
@@ -114,6 +116,28 @@ def main():
                     print(f"    [DEP] {dep['nome']} ({dep['tipo']})")
                 print()
         
+        elif op == 7:
+            types = extrairTypes(cursor)
+            print(f"Total de types: {len(types)}\n")
+            for t in types:
+                print(f"  → {t['nome']} | Typecode: {t['typecode']} | Status: {t['status']}")
+                for atr in t['atributos']:
+                    print(f"    {atr['nome']} | {atr['tipo']} | Ordem: {atr['ordem']}")
+                for dep in t['dependencias']:
+                    print(f"    [DEP] {dep['nome']} ({dep['tipo']})")
+            print()
+        
+        elif op == 7:
+            types = extrairTypes(cursor)
+            print(f"Total de types: {len(types)}\n")
+            for t in types:
+                print(f"  → {t['nome']} | Typecode: {t['typecode']} | Status: {t['status']}")
+                for atr in t['atributos']:
+                    print(f"    {atr['nome']} | {atr['tipo']} | Ordem: {atr['ordem']}")
+                for dep in t['dependencias']:
+                    print(f"    [DEP] {dep['nome']} ({dep['tipo']})")
+                print()
+        
         print()
         print("MENU")
         print("0 - Sair")
@@ -123,6 +147,7 @@ def main():
         print("4 - Functions")
         print("5 - Packages")
         print("6 - Triggers")
+        print("7 - Types")
         op = int(input("Informe a opção desejada: "))
         print()
 
