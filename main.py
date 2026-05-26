@@ -6,6 +6,13 @@ from extractor.procedures import extrairProcedures
 from extractor.functions import extrairFunctions
 from extractor.packages import extrairPackages
 from extractor.triggers import extrairTriggers
+from extractor.types import extrairTypes
+from extractor.indexes import extrairIndexes
+from extractor.sequences import extrairSequences
+from extractor.synonyms import extrairSynonyms
+from extractor.jobs import extrairJobs
+from extractor.dependencies import extrairDependencies, agruparDependencias
+from processor.schema_map import mapearSchema
 
 def conectar():
     conexao = oracledb.connect(
@@ -38,6 +45,13 @@ def main():
     print("4 - Functions")
     print("5 - Packages")
     print("6 - Triggers")
+    print("7 - Types")
+    print("8 - Indexes")
+    print("9 - Sequences")
+    print("10 - Synonyms")
+    print("11 - Jobs")
+    print("12 - Dependências") 
+    print("13 - Mapear schema completo") 
     op = int(input("Informe a opção desejada: "))
     print()
     
@@ -115,6 +129,93 @@ def main():
                     print(f"    [DEP] {dep['nome']} ({dep['tipo']})")
                 print()
         
+        elif op == 7:
+            types = extrairTypes(cursor)
+            print(f"Total de types: {len(types)}\n")
+            for t in types:
+                print(f"  → {t['nome']} | Typecode: {t['typecode']} | Status: {t['status']}")
+                for atr in t['atributos']:
+                    print(f"    {atr['nome']} | {atr['tipo']} | Ordem: {atr['ordem']}")
+                for dep in t['dependencias']:
+                    print(f"    [DEP] {dep['nome']} ({dep['tipo']})")
+            print()
+        
+        elif op == 7:
+            types = extrairTypes(cursor)
+            print(f"Total de types: {len(types)}\n")
+            for t in types:
+                print(f"  → {t['nome']} | Typecode: {t['typecode']} | Status: {t['status']}")
+                for atr in t['atributos']:
+                    print(f"    {atr['nome']} | {atr['tipo']} | Ordem: {atr['ordem']}")
+                for dep in t['dependencias']:
+                    print(f"    [DEP] {dep['nome']} ({dep['tipo']})")
+                print()
+        
+        elif op == 8:
+            indexes = extrairIndexes(cursor)
+            print(f"Total de indexes: {len(indexes)}\n")
+            for i in indexes:
+                print(f"  → {i['nome']} | Tabela: {i['tabela']} | Tipo: {i['tipo']} | Único: {i['unico']} | Status: {i['status']}")
+
+                for col in i['colunas']:
+                    print(f"    {col['nome']} | Posição: {col['posicao']} | Ordem: {col['ordem']}")   
+                print()
+
+        elif op == 9:
+            sequences = extrairSequences(cursor)
+            print(f"Total de sequences: {len(sequences)}\n")
+            for s in sequences:
+                print(f"  → {s['nome']} | Incremento: {s['incremento']} | Último valor: {s['ultimo_valor']} | Cíclico: {s['ciclico']}")
+                print()
+        
+        elif op == 10:
+            synonyms = extrairSynonyms(cursor)
+            print(f"Total de synonyms: {len(synonyms)}\n")
+            for s in synonyms:
+                print(f"  → {s['nome']} | Aponta para: {s['owner_referenciado']}.{s['objeto_referenciado']}", end="")
+                if s['db_link']:
+                    print(f" | DB Link: {s['db_link']}", end="")
+                print()
+
+        elif op == 11:
+            jobs = extrairJobs(cursor)
+            print(f"Total de jobs: {len(jobs)}\n")
+            for j in jobs:
+                print(f"  → {j['nome']} | Tipo: {j['tipo']} | Estado: {j['estado']} | Habilitado: {j['habilitado']}")
+                print(f"    Intervalo: {j['intervalo']}")
+                print(f"    Última execução: {j['ultima_execucao']} | Próxima: {j['proxima_execucao']}")
+                print(f"    Execuções: {j['qtd_execucoes']} | Falhas: {j['qtd_falhas']}")
+                print()
+
+        elif op == 12:
+            dependencias = extrairDependencies(cursor)
+            grafo = agruparDependencias(dependencias)
+
+            print(f"Total de objetos com dependências: {len(grafo)}\n")
+            for nome, info in grafo.items():
+                print(f"  → {nome} ({info['tipo']})")
+                for dep in info['depende_de']:
+                    print(f"    depende de: {dep['owner']}.{dep['nome']} ({dep['tipo']})")
+                print()
+        
+        elif op == 13:
+            print(f"\nMapeando schema {config.SCHEMA}...\n")
+            schema = mapearSchema(cursor, config.SCHEMA)
+
+            print(f"\nResumo do schema {schema['schema']}:")
+            print(f"  Tabelas:    {len(schema['tabelas'])}")
+            print(f"  Views:      {len(schema['views'])}")
+            print(f"  Sequences:  {len(schema['sequences'])}")
+            print(f"  Procedures: {len(schema['procedures'])}")
+            print(f"  Functions:  {len(schema['functions'])}")
+            print(f"  Packages:   {len(schema['packages'])}")
+            print(f"  Triggers:   {len(schema['triggers'])}")
+            print(f"  Types:      {len(schema['types'])}")
+            print(f"  Indexes:    {len(schema['indexes'])}")
+            print(f"  Synonyms:   {len(schema['synonyms'])}")
+            print(f"  Jobs:       {len(schema['jobs'])}")
+            print()
+
         print()
         print("MENU")
         print("0 - Sair")
@@ -124,6 +225,13 @@ def main():
         print("4 - Functions")
         print("5 - Packages")
         print("6 - Triggers")
+        print("7 - Types")
+        print("8 - Indexes")
+        print("9 - Sequences")
+        print("10 - Synonyms")
+        print("11 - Jobs")
+        print("12 - Dependências")
+        print("13 - Mapear schema completo")
         op = int(input("Informe a opção desejada: "))
         print()
 
