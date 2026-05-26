@@ -12,6 +12,7 @@ from extractor.sequences import extrairSequences
 from extractor.synonyms import extrairSynonyms
 from extractor.jobs import extrairJobs
 from extractor.dependencies import extrairDependencies, agruparDependencias
+from processor.schema_map import mapearSchema
 
 def conectar():
     conexao = oracledb.connect(
@@ -49,7 +50,8 @@ def main():
     print("9 - Sequences")
     print("10 - Synonyms")
     print("11 - Jobs")
-    print("12 - Dependências")  
+    print("12 - Dependências") 
+    print("13 - Mapear schema completo") 
     op = int(input("Informe a opção desejada: "))
     print()
     
@@ -194,6 +196,24 @@ def main():
                 for dep in info['depende_de']:
                     print(f"    depende de: {dep['owner']}.{dep['nome']} ({dep['tipo']})")
                 print()
+        
+        elif op == 13:
+            print(f"\nMapeando schema {config.SCHEMA}...\n")
+            schema = mapearSchema(cursor, config.SCHEMA)
+
+            print(f"\nResumo do schema {schema['schema']}:")
+            print(f"  Tabelas:    {len(schema['tabelas'])}")
+            print(f"  Views:      {len(schema['views'])}")
+            print(f"  Sequences:  {len(schema['sequences'])}")
+            print(f"  Procedures: {len(schema['procedures'])}")
+            print(f"  Functions:  {len(schema['functions'])}")
+            print(f"  Packages:   {len(schema['packages'])}")
+            print(f"  Triggers:   {len(schema['triggers'])}")
+            print(f"  Types:      {len(schema['types'])}")
+            print(f"  Indexes:    {len(schema['indexes'])}")
+            print(f"  Synonyms:   {len(schema['synonyms'])}")
+            print(f"  Jobs:       {len(schema['jobs'])}")
+            print()
 
         print()
         print("MENU")
@@ -210,6 +230,7 @@ def main():
         print("10 - Synonyms")
         print("11 - Jobs")
         print("12 - Dependências")
+        print("13 - Mapear schema completo")
         op = int(input("Informe a opção desejada: "))
         print()
 
