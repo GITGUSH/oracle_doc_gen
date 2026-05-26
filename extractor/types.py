@@ -54,13 +54,16 @@ def extrairDependenciasType(cursor, nome_type):
 def extrairTypes(cursor):
     cursor.execute("""
         SELECT
-            type_name,
-            typecode,
-            attributes,
-            methods,
-            status
-        FROM user_types
-        ORDER BY type_name
+            t.type_name,
+            t.typecode,
+            t.attributes,
+            t.methods,
+            o.status
+        FROM user_types t
+        JOIN user_objects o
+            ON o.object_name = t.type_name
+            AND o.object_type = 'TYPE'
+        ORDER BY t.type_name
     """)
 
     types = []
