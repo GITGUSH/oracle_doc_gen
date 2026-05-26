@@ -10,6 +10,7 @@ from extractor.types import extrairTypes
 from extractor.indexes import extrairIndexes
 from extractor.sequences import extrairSequences
 from extractor.synonyms import extrairSynonyms
+from extractor.jobs import extrairJobs
 
 def conectar():
     conexao = oracledb.connect(
@@ -46,6 +47,7 @@ def main():
     print("8 - Indexes")
     print("9 - Sequences")
     print("10 - Synonyms")
+    print("11 - Jobs")
     op = int(input("Informe a opção desejada: "))
     print()
     
@@ -170,6 +172,16 @@ def main():
                     print(f" | DB Link: {s['db_link']}", end="")
                 print()
 
+        elif op == 11:
+            jobs = extrairJobs(cursor)
+            print(f"Total de jobs: {len(jobs)}\n")
+            for j in jobs:
+                print(f"  → {j['nome']} | Tipo: {j['tipo']} | Estado: {j['estado']} | Habilitado: {j['habilitado']}")
+                print(f"    Intervalo: {j['intervalo']}")
+                print(f"    Última execução: {j['ultima_execucao']} | Próxima: {j['proxima_execucao']}")
+                print(f"    Execuções: {j['qtd_execucoes']} | Falhas: {j['qtd_falhas']}")
+                print()
+
         print()
         print("MENU")
         print("0 - Sair")
@@ -183,6 +195,7 @@ def main():
         print("8 - Indexes")
         print("9 - Sequences")
         print("10 - Synonyms")
+        print("11 - Jobs")
         op = int(input("Informe a opção desejada: "))
         print()
 
