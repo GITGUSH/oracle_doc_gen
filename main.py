@@ -105,6 +105,7 @@ def main():
                 for dep in p['dependencias']:
                     print(f"    [DEP] {dep['nome']} ({dep['tipo']})")
                 print()
+                
         elif op == 6:
             triggers = extrairTriggers(cursor)
             print(f"Total de triggers: {len(triggers)}\n")
