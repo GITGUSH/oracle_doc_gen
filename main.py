@@ -13,6 +13,7 @@ from extractor.synonyms import extrairSynonyms
 from extractor.jobs import extrairJobs
 from extractor.dependencies import extrairDependencies, agruparDependencias
 from processor.schema_map import mapearSchema
+from generator.html.builder import criarPastas, copiarAssets
 
 def conectar():
     conexao = oracledb.connect(
@@ -54,6 +55,7 @@ def main():
     print("13 - Mapear schema completo") 
     print("14 - Resumo das relações entre tabelas")
     print("15 - Resumo do grafo de dependências")
+    print("16 - Preparar estrutura para geração de documentação HTML")
     op = int(input("Informe a opção desejada: "))
     print()
     
@@ -232,6 +234,10 @@ def main():
             from processor.deps_graph import resumoGrafo
             resumoGrafo(schema["grafo_deps"])
 
+        elif op == 16:
+            criarPastas(config.SCHEMA)
+            copiarAssets()
+
         print()
         print("MENU")
         print("0 - Sair")
@@ -250,6 +256,7 @@ def main():
         print("13 - Mapear schema completo")
         print("14 - Resumo das relações entre tabelas")
         print("15 - Resumo do grafo de dependências")
+        print("16 - Preparar estrutura para geração de documentação HTML")
         op = int(input("Informe a opção desejada: "))
         print()
 
