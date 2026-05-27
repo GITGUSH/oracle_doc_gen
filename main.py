@@ -52,6 +52,8 @@ def main():
     print("11 - Jobs")
     print("12 - Dependências") 
     print("13 - Mapear schema completo") 
+    print("14 - Resumo das relações entre tabelas")
+    print("15 - Resumo do grafo de dependências")
     op = int(input("Informe a opção desejada: "))
     print()
     
@@ -225,6 +227,11 @@ def main():
                 print(f"  {r['tabela_origem']}.{r['coluna_origem']} → {r['tabela_destino']}")
                 print()
 
+        elif op == 15:
+            schema = mapearSchema(cursor, config.SCHEMA)
+            from processor.deps_graph import resumoGrafo
+            resumoGrafo(schema["grafo_deps"])
+
         print()
         print("MENU")
         print("0 - Sair")
@@ -241,6 +248,8 @@ def main():
         print("11 - Jobs")
         print("12 - Dependências")
         print("13 - Mapear schema completo")
+        print("14 - Resumo das relações entre tabelas")
+        print("15 - Resumo do grafo de dependências")
         op = int(input("Informe a opção desejada: "))
         print()
 

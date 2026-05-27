@@ -11,6 +11,7 @@ from extractor.synonyms import extrairSynonyms
 from extractor.jobs import extrairJobs
 from extractor.dependencies import extrairDependencies, agruparDependencias
 from processor.relations import mapearRelacoes, resumoRelacoes
+from processor.deps_graph import montarGrafoDeps
 
 def mapearSchema(cursor, schema):
     print("Extraindo tabelas...")
@@ -50,7 +51,16 @@ def mapearSchema(cursor, schema):
     dependencias = extrairDependencies(cursor)
     grafo = agruparDependencias(dependencias)
 
+    print("Mapeando relações...")
     relacoes = mapearRelacoes(tabelas)
+
+    print("Montando grafo de dependências...")
+    grafo_deps = montarGrafoDeps({
+        "procedures": procedures,
+        "functions": functions,
+        "triggers": triggers,
+        "views": views
+    })
 
     return {
         "schema": schema,
@@ -66,6 +76,7 @@ def mapearSchema(cursor, schema):
         "synonyms": synonyms,
         "jobs": jobs,
         "dependencias": grafo,
-        "relacoes": relacoes,                    
-        "resumo_relacoes": resumoRelacoes(relacoes)  
+        "relacoes": relacoes,
+        "resumo_relacoes": resumoRelacoes(relacoes),
+        "grafo_deps": grafo_deps
     }
