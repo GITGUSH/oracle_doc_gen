@@ -10,6 +10,7 @@ from extractor.indexes import extrairIndexes
 from extractor.synonyms import extrairSynonyms
 from extractor.jobs import extrairJobs
 from extractor.dependencies import extrairDependencies, agruparDependencias
+from processor.relations import mapearRelacoes, resumoRelacoes
 
 def mapearSchema(cursor, schema):
     print("Extraindo tabelas...")
@@ -49,6 +50,8 @@ def mapearSchema(cursor, schema):
     dependencias = extrairDependencies(cursor)
     grafo = agruparDependencias(dependencias)
 
+    relacoes = mapearRelacoes(tabelas)
+
     return {
         "schema": schema,
         "tabelas": tabelas,
@@ -62,5 +65,7 @@ def mapearSchema(cursor, schema):
         "indexes": indexes,
         "synonyms": synonyms,
         "jobs": jobs,
-        "dependencias": grafo
+        "dependencias": grafo,
+        "relacoes": relacoes,                    
+        "resumo_relacoes": resumoRelacoes(relacoes)  
     }

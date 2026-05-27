@@ -215,6 +215,15 @@ def main():
             print(f"  Synonyms:   {len(schema['synonyms'])}")
             print(f"  Jobs:       {len(schema['jobs'])}")
             print()
+        
+        elif op == 14:
+            schema = mapearSchema(cursor, config.SCHEMA)
+            relacoes = schema["relacoes"]
+
+            print(f"Total de relações encontradas: {len(relacoes)}\n")
+            for r in relacoes:
+                print(f"  {r['tabela_origem']}.{r['coluna_origem']} → {r['tabela_destino']}")
+                print()
 
         print()
         print("MENU")
