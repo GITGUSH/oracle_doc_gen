@@ -14,6 +14,7 @@ from extractor.jobs import extrairJobs
 from extractor.dependencies import extrairDependencies, agruparDependencias
 from processor.schema_map import mapearSchema
 from generator.html.builder import criarPastas, copiarAssets
+from generator.html.index import gerarIndex
 
 def conectar():
     conexao = oracledb.connect(
@@ -56,6 +57,7 @@ def main():
     print("14 - Resumo das relações entre tabelas")
     print("15 - Resumo do grafo de dependências")
     print("16 - Preparar estrutura para geração de documentação HTML")
+    print("17 - Gerar index.html do schema mapeado")
     op = int(input("Informe a opção desejada: "))
     print()
     
@@ -237,6 +239,12 @@ def main():
         elif op == 16:
             criarPastas(config.SCHEMA)
             copiarAssets()
+        
+        elif op == 17:
+            schema_data = mapearSchema(cursor, config.SCHEMA)
+            criarPastas(config.SCHEMA)
+            copiarAssets()
+            gerarIndex(schema_data)
 
         print()
         print("MENU")
@@ -257,6 +265,7 @@ def main():
         print("14 - Resumo das relações entre tabelas")
         print("15 - Resumo do grafo de dependências")
         print("16 - Preparar estrutura para geração de documentação HTML")
+        print("17 - Gerar index.html do schema mapeado")
         op = int(input("Informe a opção desejada: "))
         print()
 
