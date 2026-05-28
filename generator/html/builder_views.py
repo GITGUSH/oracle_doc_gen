@@ -1,4 +1,5 @@
 from generator.html.builder import lerTemplate, renderizar, salvarArquivo
+import html
 
 def gerarListaViews(schema_data):
     schema = schema_data["schema"]
@@ -44,6 +45,8 @@ def gerarListaViews(schema_data):
 
 
 def gerarPaginaView(schema, view):
+    codigo_fonte = html.escape(view['codigo'])  # Views geralmente não têm código fonte como procedures, mas vamos mostrar a definição SQL
+
     colunas_html = ""
     for col in view["colunas"]:
         colunas_html += f"""
@@ -99,12 +102,12 @@ def gerarPaginaView(schema, view):
 
     <div class="card">
         <h3>Código Fonte</h3>
-        <pre>{view['codigo']}</pre>
+        <pre>{codigo_fonte}</pre>
     </div>
     """
 
     template = lerTemplate("base.html")
-    html = renderizar(template, {
+    pagina_html = renderizar(template, {
         "titulo": view['nome'],
         "schema": schema,
         "caminho_assets": "../../assets",
@@ -112,7 +115,7 @@ def gerarPaginaView(schema, view):
         "conteudo": conteudo
     })
 
-    salvarArquivo(f"output/{schema}/views/{view['nome'].lower()}.html", html)
+    salvarArquivo(f"output/{schema}/views/{view['nome'].lower()}.html", pagina_html)
 
 
 def gerarViews(schema_data):

@@ -1,4 +1,5 @@
 from generator.html.builder import lerTemplate, renderizar, salvarArquivo
+import html
 
 def gerarListaProcedures(schema_data):
     schema = schema_data["schema"]
@@ -47,6 +48,8 @@ def gerarListaProcedures(schema_data):
 
 
 def gerarPaginaProcedure(schema, procedure):
+    codigo_fonte = html.escape(procedure['codigo'])
+
     args_html = ""
     for arg in procedure["argumentos"]:
         args_html += f"""
@@ -113,12 +116,12 @@ def gerarPaginaProcedure(schema, procedure):
 
     <div class="card">
         <h3>Código Fonte</h3>
-        <pre>{procedure['codigo']}</pre>
+        <pre>{codigo_fonte}</pre>
     </div>
     """
 
     template = lerTemplate("base.html")
-    html = renderizar(template, {
+    pagina_html = renderizar(template, {
         "titulo": procedure['nome'],
         "schema": schema,
         "caminho_assets": "../../assets",
@@ -126,7 +129,7 @@ def gerarPaginaProcedure(schema, procedure):
         "conteudo": conteudo
     })
 
-    salvarArquivo(f"output/{schema}/procedures/{procedure['nome'].lower()}.html", html)
+    salvarArquivo(f"output/{schema}/procedures/{procedure['nome'].lower()}.html", pagina_html)
 
 
 def gerarProcedures(schema_data):

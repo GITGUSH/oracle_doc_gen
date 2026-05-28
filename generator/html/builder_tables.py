@@ -118,7 +118,7 @@ def gerarPaginaTabela(schema, tabela):
     """
 
     template = lerTemplate("table.html")
-    html = renderizar(template, {
+    pagina_html = renderizar(template, {
         "titulo": tabela['nome'],
         "schema": schema,
         "caminho_assets": "../../assets",
@@ -126,7 +126,7 @@ def gerarPaginaTabela(schema, tabela):
         "conteudo": conteudo
     })
 
-    salvarArquivo(f"output/{schema}/tables/{tabela['nome'].lower()}.html", html)
+    salvarArquivo(f"output/{schema}/tables/{tabela['nome'].lower()}.html", pagina_html)
 
 
 def gerarTabelas(schema_data):
