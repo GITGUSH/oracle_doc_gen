@@ -38,7 +38,7 @@ def conectar():
 #testarConexao()
 
 def main():
-    con = conectar()
+    con = conectar() 
     cursor = con.cursor()
     
     print("MENU")
