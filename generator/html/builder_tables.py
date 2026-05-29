@@ -32,7 +32,7 @@ def gerarListaTabelas(schema_data):
     </table>
     """
 
-    template = lerTemplate("table.html")
+    template = lerTemplate("base.html")
     html = renderizar(template, {
         "titulo": "Tabelas",
         "schema": schema,
