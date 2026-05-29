@@ -61,11 +61,13 @@ def extrairConstraints(cursor, nome_tabela):
 def extrairTabelas(cursor):
     cursor.execute("""
         SELECT
-            table_name,
-            num_rows,
-            status
-        FROM user_tables
-        ORDER BY table_name
+            t.table_name,
+            o.status
+        FROM user_tables t
+        JOIN user_objects o
+            ON o.object_name = t.table_name
+            AND o.object_type = 'TABLE'
+        ORDER BY t.table_name
     """)
 
     tabelas = []
