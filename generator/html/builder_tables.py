@@ -117,7 +117,7 @@ def gerarPaginaTabela(schema, tabela):
     </div>
     """
 
-    template = lerTemplate("table.html")
+    template = lerTemplate("base.html")
     pagina_html = renderizar(template, {
         "titulo": tabela['nome'],
         "schema": schema,
