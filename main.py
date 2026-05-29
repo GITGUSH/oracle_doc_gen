@@ -18,6 +18,7 @@ from generator.html.index import gerarIndex
 from generator.html.builder_tables import gerarTabelas
 from generator.html.builder_views import gerarViews
 from generator.html.builder_procedures import gerarProcedures
+from generator.html.builder_functions import gerarFunctions
 
 def conectar():
     conexao = oracledb.connect(
@@ -251,6 +252,8 @@ def main():
             gerarViews(schema_data)
 
             gerarProcedures(schema_data)
+
+            gerarFunctions(schema_data)
 
         print()
         print("MENU")
