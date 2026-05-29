@@ -52,9 +52,10 @@ def gerarPaginaFunction(schema, function):
 
     args_html = ""
     for arg in function["argumentos"]:
+        nome = "RETURN" if arg['nome'] is None else arg['nome']
         args_html += f"""
         <tr>
-            <td>{arg['nome'] or '-'}</td>
+            <td>{nome}</td>
             <td>{arg['tipo'] or '-'}</td>
             <td><span class="tag tag-pk">{arg['direcao']}</span></td>
             <td>{arg['posicao']}</td>
