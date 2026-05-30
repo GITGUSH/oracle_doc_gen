@@ -1,4 +1,4 @@
-from generator.html.builder import lerTemplate, renderizar, salvarArquivo
+from generator.html.builder import lerTemplate, renderizar, salvarArquivo, linkObjeto
 import html
 
 def gerarListaPackages(schema_data):
@@ -88,7 +88,7 @@ def gerarPaginaPackage(schema, package):
     for dep in package["dependencias"]:
         deps_html += f"""
         <tr>
-            <td>{dep['nome']}</td>
+            <td>{linkObjeto(dep['nome'], dep['tipo'], '..')}</td>
             <td>{dep['tipo']}</td>
         </tr>
         """

@@ -1,4 +1,4 @@
-from generator.html.builder import lerTemplate, renderizar, salvarArquivo
+from generator.html.builder import lerTemplate, renderizar, salvarArquivo, linkObjeto
 
 def gerarListaJobs(schema_data):
     schema = schema_data["schema"]

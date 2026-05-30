@@ -1,4 +1,4 @@
-from generator.html.builder import lerTemplate, renderizar, salvarArquivo
+from generator.html.builder import lerTemplate, renderizar, salvarArquivo, linkObjeto
 import html
 
 def gerarListaTriggers(schema_data):
@@ -56,7 +56,7 @@ def gerarPaginaTrigger(schema, trigger):
     for dep in trigger["dependencias"]:
         deps_html += f"""
         <tr>
-            <td>{dep['nome']}</td>
+            <td>{linkObjeto(dep['nome'], dep['tipo'], '..')}</td>
             <td>{dep['tipo']}</td>
         </tr>
         """

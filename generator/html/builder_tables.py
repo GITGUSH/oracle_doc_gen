@@ -1,4 +1,4 @@
-from generator.html.builder import lerTemplate, renderizar, salvarArquivo
+from generator.html.builder import lerTemplate, renderizar, salvarArquivo, linkObjeto
 
 def gerarListaTabelas(schema_data):
     schema = schema_data["schema"]
@@ -61,7 +61,7 @@ def gerarPaginaTabela(schema, tabela):
     constraints_html = ""
     for c in tabela["constraints"]:
         tipo_tag = "tag-pk" if c['tipo'] == 'PK' else "tag-fk"
-        ref = f"→ {c['tabela_ref']}" if c['tipo'] == 'FK' else ""
+        ref = f"→ {linkObjeto(c['tabela_ref'], 'TABLE', '..')}" if c['tipo'] == 'FK' else ""
         constraints_html += f"""
         <tr>
             <td><span class="tag {tipo_tag}">{c['tipo']}</span></td>

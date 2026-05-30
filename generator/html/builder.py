@@ -51,3 +51,27 @@ def renderizar(template, variaveis):
 def salvarArquivo(caminho, conteudo):
     with open(caminho, "w", encoding="utf-8") as f:
         f.write(conteudo)
+
+import os
+
+def linkObjeto(nome, tipo, caminho_base):
+    mapa = {
+        "TABLE":        "tables",
+        "VIEW":         "views",
+        "PROCEDURE":    "procedures",
+        "FUNCTION":     "functions",
+        "PACKAGE":      "packages",
+        "PACKAGE BODY": "packages",
+        "TRIGGER":      "triggers",
+        "SEQUENCE":     "sequences",
+        "INDEX":        "indexes",
+        "SYNONYM":      "synonyms",
+    }
+
+    pasta = mapa.get(tipo.upper())
+    if pasta:
+        caminho_arquivo = f"output/BMCHELP/{pasta}/{nome.lower()}.html"
+        if os.path.exists(caminho_arquivo):
+            return f"<a href='{caminho_base}/{pasta}/{nome.lower()}.html'>{nome}</a>"
+    
+    return nome
