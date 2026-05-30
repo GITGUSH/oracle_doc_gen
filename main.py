@@ -71,6 +71,7 @@ def main():
             gerarIndexes(schema_data)
             gerarSynonyms(schema_data)
             gerarJobs(schema_data)
+            break
 
         else:
             print("Opção inválida!")
