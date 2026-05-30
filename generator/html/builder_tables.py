@@ -1,4 +1,5 @@
 from generator.html.builder import lerTemplate, renderizar, salvarArquivo, linkObjeto
+from generator.plantuml import gerarCodigoPuml, gerarUrlDiagrama
 
 def gerarListaTabelas(schema_data):
     schema = schema_data["schema"]
@@ -45,7 +46,10 @@ def gerarListaTabelas(schema_data):
     print("tables/index.html gerado.")
 
 
-def gerarPaginaTabela(schema, tabela):
+def gerarPaginaTabela(schema, tabela, todas_tabelas):
+    codigo_puml = gerarCodigoPuml(tabela, todas_tabelas)
+    url_diagrama = gerarUrlDiagrama(codigo_puml)
+
     colunas_html = ""
     for col in tabela["colunas"]:
         colunas_html += f"""
@@ -115,6 +119,17 @@ def gerarPaginaTabela(schema, tabela):
             </tbody>
         </table>
     </div>
+
+    <div class="card">
+        <h3>Diagrama de Relacionamentos</h3>
+        <div style="text-align: center; padding: 20px;">
+            <img src="{url_diagrama}" alt="Diagrama {tabela['nome']}" style="max-width: 100%;">
+        </div>
+        <details style="margin-top: 16px;">
+            <summary style="cursor: pointer; color: #1E2761; font-weight: bold;">Ver código PlantUML</summary>
+            <pre style="margin-top: 12px;">{codigo_puml}</pre>
+        </details>
+    </div>
     """
 
     template = lerTemplate("base.html")
@@ -134,6 +149,6 @@ def gerarTabelas(schema_data):
     gerarListaTabelas(schema_data)
 
     for tabela in schema_data["tabelas"]:
-        gerarPaginaTabela(schema, tabela)
+        gerarPaginaTabela(schema, tabela, schema_data["tabelas"])
 
     print(f"{len(schema_data['tabelas'])} páginas de tabelas geradas.")
