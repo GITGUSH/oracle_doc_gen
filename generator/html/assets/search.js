@@ -36,3 +36,60 @@ function filtrarTabela(input) {
         contador.textContent = `${visiveis} de ${total} resultado${total !== 1 ? 's' : ''}`;
     }
 }
+
+function ordenarTabela(col) {
+    const tabela = document.getElementById("tabelaLista");
+    const linhas = Array.from(tabela.getElementsByTagName("tr")).slice(1);
+    const headers = tabela.getElementsByTagName("th");
+
+    const atual = headers[col].dataset.ordem || "";
+    const novaOrdem = atual === "asc" ? "desc" : "asc";
+
+    // limpa outros headers
+    Array.from(headers).forEach((h, i) => {
+        if (i !== col) {
+            h.dataset.ordem = "";
+            h.textContent = h.textContent.replace(" ▲", "").replace(" ▼", "");
+        }
+    });
+
+    linhas.sort((a, b) => {
+        const tdA = a.getElementsByTagName("td")[col].textContent.trim();
+        const tdB = b.getElementsByTagName("td")[col].textContent.trim();
+
+        const numA = parseFloat(tdA.replace(/\./g, "").replace(",", "."));
+        const numB = parseFloat(tdB.replace(/\./g, "").replace(",", "."));
+
+        const isNumerico = !isNaN(numA) && !isNaN(numB);
+
+        if (isNumerico) {
+            return novaOrdem === "asc" ? numA - numB : numB - numA;
+        } else {
+            const strA = tdA.toLowerCase();
+            const strB = tdB.toLowerCase();
+            if (strA < strB) return novaOrdem === "asc" ? -1 : 1;
+            if (strA > strB) return novaOrdem === "asc" ? 1 : -1;
+            return 0;
+        }
+    });
+
+    const tbody = tabela.getElementsByTagName("tbody")[0];
+    linhas.forEach(linha => tbody.appendChild(linha));
+
+    // atualiza header clicado
+    headers[col].textContent = headers[col].textContent.replace(" ▲", "").replace(" ▼", "");
+    headers[col].dataset.ordem = novaOrdem;
+    headers[col].textContent += novaOrdem === "asc" ? " ▲" : " ▼";
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const tabela = document.getElementById("tabelaLista");
+    if (!tabela) return;
+
+    const headers = tabela.getElementsByTagName("th");
+    Array.from(headers).forEach((th, index) => {
+        th.style.cursor = "pointer";
+        th.title = "Clique para ordenar";
+        th.addEventListener("click", () => ordenarTabela(index));
+    });
+});

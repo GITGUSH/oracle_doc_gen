@@ -240,6 +240,15 @@ tbody tr:hover {
     background: #EEF2FF;
 }
 
+thead th {
+    cursor: pointer;
+    user-select: none;
+}
+
+thead th:hover {
+    background: #2A3B7B;
+}
+
 /* Links da tabela */
 tbody td a {
     transition: color 0.2s ease;
