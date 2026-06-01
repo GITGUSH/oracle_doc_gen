@@ -1,7 +1,7 @@
 import os
 import shutil
 import config
-
+from datetime import datetime
 
 def criarPastas(schema):
     pastas = [
@@ -57,6 +57,9 @@ def renderizar(template, variaveis):
 
     if "breadcrumb" not in variaveis:
         variaveis["breadcrumb"] = ""
+    
+    if "gerado_em" not in variaveis:
+        variaveis["gerado_em"] = datetime.now().strftime("%d/%m/%Y %H:%M")
 
     for chave, valor in variaveis.items():
         template = template.replace("{{ " + chave + " }}", str(valor))
