@@ -153,6 +153,10 @@ pre {
     line-height: 1.6;
 }
 
+pre code {
+    border-radius: 8px;
+}
+
 /* Cards */
 .card {
     background: white;
@@ -357,3 +361,117 @@ body.dark .search-box:focus {
 body.dark .content {
     background: #1A1F2E;
 }
+
+body.dark {
+    background: #12101A;
+    color: #E2E8F0;
+}
+
+body.dark .sidebar {
+    background: #1C1728;
+}
+
+body.dark .sidebar-header {
+    background: #140F20;
+    border-bottom-color: #7C3AED;
+}
+
+body.dark .sidebar-header h1 {
+    color: #A78BFA;
+}
+
+body.dark nav ul li a {
+    color: #C4B5FD;
+}
+
+body.dark nav ul li a:hover {
+    background: #2D2040;
+    color: white;
+}
+
+body.dark nav ul li a.active {
+    background: #2D2040;
+    border-left-color: #7C3AED;
+    color: white;
+}
+
+body.dark .content-header {
+    background: #1C1728;
+    border-bottom-color: #2D2040;
+}
+
+body.dark .content-header h2 {
+    color: #A78BFA;
+}
+
+body.dark .breadcrumb a {
+    color: #A78BFA;
+}
+
+body.dark .breadcrumb {
+    color: #6B7280;
+}
+
+body.dark .card {
+    background: #1C1728;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+body.dark .card h3 {
+    color: #A78BFA;
+    border-bottom-color: #7C3AED;
+}
+
+body.dark table {
+    background: #1C1728;
+}
+
+body.dark thead {
+    background: #2f2547;
+}
+
+body.dark tbody tr:nth-child(even) {
+    background: #17111F;
+}
+
+body.dark tbody tr:hover {
+    background: #2D2040;
+}
+
+body.dark tbody td {
+    border-bottom-color: #2D2040;
+    color: #E2E8F0;
+}
+
+body.dark tbody td a {
+    color: #A78BFA;
+}
+
+body.dark .search-box {
+    background: #1C1728;
+    border-color: #2D2040;
+    color: #E2E8F0;
+}
+
+body.dark .search-box:focus {
+    border-color: #7C3AED;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+
+body.dark .content {
+    background: #12101A;
+}
+
+body.dark #btnDarkMode {
+    border-color: #7C3AED;
+    color: #A78BFA;
+}
+
+body.dark pre {
+    background: transparent;
+}
+
+body.dark pre code {
+    border-radius: 8px;
+}
+
