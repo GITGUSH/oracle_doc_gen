@@ -3,6 +3,69 @@ from generator.html.builder import lerTemplate, renderizar, salvarArquivo
 def gerarIndex(schema_data):
     schema = schema_data["schema"]
 
+    # coleta objetos inválidos
+    invalidos = []
+
+    for t in schema_data["tabelas"]:
+        if t["status"] != "VALID":
+            invalidos.append({"nome": t["nome"], "tipo": "Tabela"})
+
+    for v in schema_data["views"]:
+        if v.get("status", "VALID") != "VALID":
+            invalidos.append({"nome": v["nome"], "tipo": "View"})
+
+    for p in schema_data["procedures"]:
+        if p["status"] != "VALID":
+            invalidos.append({"nome": p["nome"], "tipo": "Procedure"})
+
+    for f in schema_data["functions"]:
+        if f["status"] != "VALID":
+            invalidos.append({"nome": f["nome"], "tipo": "Function"})
+
+    for p in schema_data["packages"]:
+        if p["status"] != "VALID":
+            invalidos.append({"nome": p["nome"], "tipo": "Package"})
+
+    for t in schema_data["triggers"]:
+        if t["status"] != "ENABLED":
+            invalidos.append({"nome": t["nome"], "tipo": "Trigger"})
+
+    # card de invalidos
+    if invalidos:
+        linhas_invalidos = ""
+        for obj in invalidos:
+            linhas_invalidos += f"""
+            <tr>
+                <td>{obj['nome']}</td>
+                <td>{obj['tipo']}</td>
+                <td><span class="tag tag-invalid">INVALID</span></td>
+            </tr>
+            """
+        card_invalidos = f"""
+        <div class="card">
+            <h3>Objetos que Requerem Atencao</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {linhas_invalidos}
+                </tbody>
+            </table>
+        </div>
+        """
+    else:
+        card_invalidos = """
+        <div class="card">
+            <h3>Objetos Inválidos</h3>
+            <p style="color: #065F46; font-weight: bold;">Nenhum objeto invalido encontrado.</p>
+        </div>
+        """
+
     conteudo = f"""
     <div class="card">
         <h3>Resumo do Schema {schema}</h3>
@@ -27,6 +90,8 @@ def gerarIndex(schema_data):
             </tbody>
         </table>
     </div>
+
+    {card_invalidos}
     """
 
     template = lerTemplate("base.html")
