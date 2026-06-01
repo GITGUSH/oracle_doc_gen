@@ -188,7 +188,7 @@ Quando terminar, abra o arquivo `output/index.html` no browser.
 
 Os diagramas de relacionamento são gerados para cada tabela usando o protocolo de encoding do PlantUML. O código `.puml` é comprimido com `zlib`, codificado com o alfabeto proprietário do PlantUML e enviado como parâmetro de URL para o servidor público `plantuml.com/plantuml/svg/`. O diagrama é renderizado como SVG diretamente no browser, sem necessidade de instalar o PlantUML localmente.
 
-Cada diagrama mostra a tabela atual com todas as suas colunas (identificando PKs e FKs) e as tabelas diretamente relacionadas — apenas com o nome, sem listar as colunas — para manter a legibilidade. O código `.puml` completo fica disponível na própria página em um bloco expansível.
+Cada diagrama mostra a tabela atual com todas as suas colunas (identificando PKs e FKs) e as tabelas diretamente relacionadas. O código `.puml` completo fica disponível na própria página em um bloco expansível.
 
 
 ## Como Funciona a Busca
