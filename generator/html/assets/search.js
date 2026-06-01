@@ -49,9 +49,16 @@ function ordenarTabela(col) {
     Array.from(headers).forEach((h, i) => {
         if (i !== col) {
             h.dataset.ordem = "";
-            h.textContent = h.textContent.replace(" ▲", "").replace(" ▼", "");
+            if (h.dataset.textoOriginal) {
+                h.textContent = h.dataset.textoOriginal;
+            }
         }
     });
+
+    // guarda texto original na primeira vez
+    if (!headers[col].dataset.textoOriginal) {
+        headers[col].dataset.textoOriginal = headers[col].textContent;
+    }
 
     linhas.sort((a, b) => {
         const tdA = a.getElementsByTagName("td")[col].textContent.trim();
@@ -76,23 +83,9 @@ function ordenarTabela(col) {
     const tbody = tabela.getElementsByTagName("tbody")[0];
     linhas.forEach(linha => tbody.appendChild(linha));
 
-    // atualiza header clicado
-    headers[col].textContent = headers[col].textContent.replace(" ▲", "").replace(" ▼", "");
     headers[col].dataset.ordem = novaOrdem;
-    headers[col].textContent += novaOrdem === "asc" ? " ▲" : " ▼";
+    headers[col].textContent = headers[col].dataset.textoOriginal + (novaOrdem === "asc" ? " ▲" : " ▼");
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-    const tabela = document.getElementById("tabelaLista");
-    if (!tabela) return;
-
-    const headers = tabela.getElementsByTagName("th");
-    Array.from(headers).forEach((th, index) => {
-        th.style.cursor = "pointer";
-        th.title = "Clique para ordenar";
-        th.addEventListener("click", () => ordenarTabela(index));
-    });
-});
 
 function toggleDarkMode() {
     const body = document.body;
