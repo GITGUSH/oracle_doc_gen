@@ -173,3 +173,26 @@ pre {
     outline: none;
     border-color: #4FC3F7;
 }
+
+/* Breadcrumb */
+.breadcrumb {
+    font-size: 12px;
+    color: #888;
+    margin-top: 6px;
+}
+
+.breadcrumb a {
+    color: #1E2761;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+/* Item ativo no menu */
+nav ul li a.active {
+    background: #2A3B7B;
+    color: white;
+    border-left: 3px solid #4FC3F7;
+}

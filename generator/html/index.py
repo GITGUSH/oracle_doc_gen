@@ -35,8 +35,9 @@ def gerarIndex(schema_data):
         "schema": schema,
         "caminho_assets": "assets",
         "caminho_raiz": ".",
+        "active_inicio": "active",
+        "breadcrumb": "Início",
         "conteudo": conteudo
     })
-
     salvarArquivo("output/index.html", html)
     print("index.html gerado.")

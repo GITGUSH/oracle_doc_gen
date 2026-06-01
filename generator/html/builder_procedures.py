@@ -40,6 +40,8 @@ def gerarListaProcedures(schema_data):
         "schema": schema,
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
+        "active_procedures": "active",
+        "breadcrumb": "<a href='../..'>Início</a> › Procedures",
         "conteudo": conteudo
     })
 
@@ -126,6 +128,8 @@ def gerarPaginaProcedure(schema, procedure):
         "schema": schema,
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
+        "active_procedures": "active",
+        "breadcrumb": f"<a href='../..'>Início</a> › <a href='index.html'>Procedures</a> › {procedure['nome']}",
         "conteudo": conteudo
     })
 

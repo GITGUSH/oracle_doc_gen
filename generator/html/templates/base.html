@@ -15,17 +15,17 @@
         </div>
         <nav>
             <ul>
-                <li><a href="{{ caminho_raiz }}/index.html">Início</a></li>
-                <li><a href="{{ caminho_raiz }}/{{ schema }}/tables/index.html">Tabelas</a></li>
-                <li><a href="{{ caminho_raiz }}/{{ schema }}/views/index.html">Views</a></li>
-                <li><a href="{{ caminho_raiz }}/{{ schema }}/procedures/index.html">Procedures</a></li>
-                <li><a href="{{ caminho_raiz }}/{{ schema }}/functions/index.html">Functions</a></li>
-                <li><a href="{{ caminho_raiz }}/{{ schema }}/packages/index.html">Packages</a></li>
-                <li><a href="{{ caminho_raiz }}/{{ schema }}/triggers/index.html">Triggers</a></li>
-                <li><a href="{{ caminho_raiz }}/{{ schema }}/sequences/index.html">Sequences</a></li>
-                <li><a href="{{ caminho_raiz }}/{{ schema }}/indexes/index.html">Indexes</a></li>
-                <li><a href="{{ caminho_raiz }}/{{ schema }}/synonyms/index.html">Synonyms</a></li>
-                <li><a href="{{ caminho_raiz }}/{{ schema }}/jobs/index.html">Jobs</a></li>
+                <li><a href="{{ caminho_raiz }}/index.html" class="{{ active_inicio }}">Início</a></li>
+                <li><a href="{{ caminho_raiz }}/{{ schema }}/tables/index.html" class="{{ active_tables }}">Tabelas</a></li>
+                <li><a href="{{ caminho_raiz }}/{{ schema }}/views/index.html" class="{{ active_views }}">Views</a></li>
+                <li><a href="{{ caminho_raiz }}/{{ schema }}/procedures/index.html" class="{{ active_procedures }}">Procedures</a></li>
+                <li><a href="{{ caminho_raiz }}/{{ schema }}/functions/index.html" class="{{ active_functions }}">Functions</a></li>
+                <li><a href="{{ caminho_raiz }}/{{ schema }}/packages/index.html" class="{{ active_packages }}">Packages</a></li>
+                <li><a href="{{ caminho_raiz }}/{{ schema }}/triggers/index.html" class="{{ active_triggers }}">Triggers</a></li>
+                <li><a href="{{ caminho_raiz }}/{{ schema }}/sequences/index.html" class="{{ active_sequences }}">Sequences</a></li>
+                <li><a href="{{ caminho_raiz }}/{{ schema }}/indexes/index.html" class="{{ active_indexes }}">Indexes</a></li>
+                <li><a href="{{ caminho_raiz }}/{{ schema }}/synonyms/index.html" class="{{ active_synonyms }}">Synonyms</a></li>
+                <li><a href="{{ caminho_raiz }}/{{ schema }}/jobs/index.html" class="{{ active_jobs }}">Jobs</a></li>
             </ul>
         </nav>
     </div>
@@ -33,6 +33,7 @@
     <div class="content">
         <div class="content-header">
             <h2>{{ titulo }}</h2>
+            <div class="breadcrumb">{{ breadcrumb }}</div>
         </div>
         <div class="content-body">
             {{ conteudo }}

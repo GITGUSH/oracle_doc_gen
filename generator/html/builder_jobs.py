@@ -41,6 +41,8 @@ def gerarListaJobs(schema_data):
         "schema": schema,
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
+        "active_jobs": "active",
+        "breadcrumb": "<a href='../..'>Início</a> › Jobs",
         "conteudo": conteudo
     })
 
@@ -83,6 +85,8 @@ def gerarPaginaJob(schema, job):
         "schema": schema,
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
+        "active_jobs": "active",
+        "breadcrumb": f"<a href='../..'>Início</a> › <a href='index.html'>Jobs</a> › {job['nome']}",
         "conteudo": conteudo
     })
 

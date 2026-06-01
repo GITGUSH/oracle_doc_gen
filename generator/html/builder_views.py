@@ -37,6 +37,8 @@ def gerarListaViews(schema_data):
         "schema": schema,
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
+        "active_views": "active",
+        "breadcrumb": "<a href='../..'>Início</a> › Views",
         "conteudo": conteudo
     })
 
@@ -112,6 +114,8 @@ def gerarPaginaView(schema, view):
         "schema": schema,
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
+        "active_views": "active",
+        "breadcrumb": f"<a href='../..'>Início</a> › <a href='index.html'>Views</a> › {view['nome']}",
         "conteudo": conteudo
     })
 

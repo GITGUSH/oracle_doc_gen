@@ -40,6 +40,8 @@ def gerarListaSequences(schema_data):
         "schema": schema,
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
+        "active_sequences": "active",
+        "breadcrumb": "<a href='../..'>Início</a> › Sequences",
         "conteudo": conteudo
     })
 
@@ -72,6 +74,8 @@ def gerarPaginaSequence(schema, sequence):
         "schema": schema,
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
+        "active_sequences": "active",
+        "breadcrumb": f"<a href='../..'>Início</a> › <a href='index.html'>Sequences</a> › {sequence['nome']}",
         "conteudo": conteudo
     })
 

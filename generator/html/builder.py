@@ -45,6 +45,19 @@ def lerTemplate(nome):
 
 
 def renderizar(template, variaveis):
+    # preenche variáveis de active_ que não foram passadas com string vazia
+    ativos = [
+        "active_inicio", "active_tables", "active_views", "active_procedures",
+        "active_functions", "active_packages", "active_triggers", "active_sequences",
+        "active_indexes", "active_synonyms", "active_jobs"
+    ]
+    for ativo in ativos:
+        if ativo not in variaveis:
+            variaveis[ativo] = ""
+
+    if "breadcrumb" not in variaveis:
+        variaveis["breadcrumb"] = ""
+
     for chave, valor in variaveis.items():
         template = template.replace("{{ " + chave + " }}", str(valor))
     return template

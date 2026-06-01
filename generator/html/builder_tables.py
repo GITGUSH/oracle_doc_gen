@@ -39,6 +39,8 @@ def gerarListaTabelas(schema_data):
         "schema": schema,
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
+        "active_tables": "active",
+        "breadcrumb": "<a href='../..'>Início</a> › Tabelas",
         "conteudo": conteudo
     })
 
@@ -138,6 +140,8 @@ def gerarPaginaTabela(schema, tabela, todas_tabelas):
         "schema": schema,
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
+        "active_tables": "active",
+        "breadcrumb": f"<a href='../..'>Início</a> › <a href='index.html'>Tabelas</a> › {tabela['nome']}",
         "conteudo": conteudo
     })
 

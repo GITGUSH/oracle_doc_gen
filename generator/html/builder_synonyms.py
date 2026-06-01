@@ -38,6 +38,8 @@ def gerarListaSynonyms(schema_data):
         "schema": schema,
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
+        "active_synonyms": "active",
+        "breadcrumb": "<a href='../..'>Início</a> › Synonyms",
         "conteudo": conteudo
     })
 
@@ -66,6 +68,8 @@ def gerarPaginaSynonym(schema, synonym):
         "schema": schema,
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
+        "active_synonyms": "active",
+        "breadcrumb": f"<a href='../..'>Início</a> › <a href='index.html'>Synonyms</a> › {synonym['nome']}",
         "conteudo": conteudo
     })
 

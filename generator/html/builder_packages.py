@@ -40,6 +40,8 @@ def gerarListaPackages(schema_data):
         "schema": schema,
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
+        "active_packages": "active",
+        "breadcrumb": "<a href='../..'>Início</a> › Packages",
         "conteudo": conteudo
     })
 
@@ -140,6 +142,8 @@ def gerarPaginaPackage(schema, package):
         "schema": schema,
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
+        "active_packages": "active",
+        "breadcrumb": f"<a href='../..'>Início</a> › <a href='index.html'>Packages</a> › {package['nome']}",
         "conteudo": conteudo
     })
 
