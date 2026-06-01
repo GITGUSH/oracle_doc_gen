@@ -43,7 +43,7 @@ def gerarIndex(schema_data):
             """
         card_invalidos = f"""
         <div class="card">
-            <h3>Objetos que Requerem Atencao</h3>
+            <h3>Objetos Inválidos</h3>
             <table>
                 <thead>
                     <tr>
