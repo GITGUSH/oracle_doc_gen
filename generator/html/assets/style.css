@@ -287,65 +287,73 @@ nav ul li a:hover {
 
 /* Modo escuro */
 body.dark {
-    background: #0D1117;
-    color: #C9D1D9;
+    background: #1A1F2E;
+    color: #E2E8F0;
 }
 
 body.dark .content-header {
-    background: #161B22;
-    border-bottom-color: #30363D;
+    background: #242938;
+    border-bottom-color: #3D4560;
 }
 
 body.dark .content-header h2 {
-    color: #58A6FF;
+    color: #CADCFC;
+}
+
+body.dark .breadcrumb {
+    color: #718096;
 }
 
 body.dark .breadcrumb a {
-    color: #58A6FF;
+    color: #CADCFC;
 }
 
 body.dark .card {
-    background: #161B22;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    background: #242938;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }
 
 body.dark .card h3 {
-    color: #58A6FF;
-    border-bottom-color: #58A6FF;
+    color: #CADCFC;
+    border-bottom-color: #4FC3F7;
 }
 
 body.dark table {
-    background: #161B22;
+    background: #242938;
 }
 
 body.dark thead {
-    background: #0D1B4B;
+    background: #1E2761;
 }
 
 body.dark tbody tr:nth-child(even) {
-    background: #1C2128;
+    background: #1E2335;
 }
 
 body.dark tbody tr:hover {
-    background: #1F2937;
+    background: #2D3748;
 }
 
 body.dark tbody td {
-    border-bottom-color: #30363D;
-    color: #C9D1D9;
+    border-bottom-color: #3D4560;
+    color: #E2E8F0;
+}
+
+body.dark tbody td a {
+    color: #4FC3F7;
 }
 
 body.dark .search-box {
-    background: #161B22;
-    border-color: #30363D;
-    color: #C9D1D9;
+    background: #242938;
+    border-color: #3D4560;
+    color: #E2E8F0;
 }
 
 body.dark .search-box:focus {
-    border-color: #58A6FF;
-    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.2);
+    border-color: #4FC3F7;
+    box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.15);
 }
 
 body.dark .content {
-    background: #0D1117;
+    background: #1A1F2E;
 }
