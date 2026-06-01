@@ -83,6 +83,7 @@ nav ul li a:hover {
     padding: 30px;
     overflow-y: auto;
     flex: 1;
+    overflow-x: hidden;
 }
 
 /* Tabelas */
@@ -94,6 +95,8 @@ table {
     overflow: hidden;
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
     margin-bottom: 24px;
+    table-layout: fixed;
+    word-wrap: break-word;
 }
 
 thead {
@@ -115,6 +118,14 @@ tbody td {
     padding: 10px 16px;
     border-bottom: 1px solid #eee;
     font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+tbody td:hover {
+    white-space: normal;
+    overflow: visible;
 }
 
 /* Tags */
@@ -149,6 +160,7 @@ pre {
     padding: 20px;
     margin-bottom: 16px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
 }
 
 .card h3 {
