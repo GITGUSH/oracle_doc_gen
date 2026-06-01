@@ -1,6 +1,6 @@
 import os
 import shutil
-from config import SCHEMA
+import config
 
 
 def criarPastas(schema):
@@ -72,7 +72,7 @@ def linkObjeto(nome, tipo, caminho_base):
 
     pasta = mapa.get(tipo.upper())
     if pasta:
-        caminho_arquivo = f"output/{SCHEMA}/{pasta}/{nome.lower()}.html"
+        caminho_arquivo = f"output/{config.SCHEMA}/{pasta}/{nome.lower()}.html"
         if os.path.exists(caminho_arquivo):
             return f"<a href='{caminho_base}/{pasta}/{nome.lower()}.html'>{nome}</a>"
     
