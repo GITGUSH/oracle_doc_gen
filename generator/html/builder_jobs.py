@@ -1,4 +1,5 @@
 from generator.html.builder import lerTemplate, renderizar, salvarArquivo, linkObjeto
+import html
 
 def gerarListaJobs(schema_data):
     schema = schema_data["schema"]
@@ -51,6 +52,7 @@ def gerarListaJobs(schema_data):
 
 
 def gerarPaginaJob(schema, job):
+    codigo_fonte = html.escape(job['acao'])
     conteudo = f"""
     <div class="card">
         <h3>Informações Gerais</h3>
@@ -75,12 +77,12 @@ def gerarPaginaJob(schema, job):
 
     <div class="card">
         <h3>Ação</h3>
-        <pre>{job['acao']}</pre>
+        <pre><code class="language-sql">{codigo_fonte}</code></pre>
     </div>
     """
 
     template = lerTemplate("base.html")
-    html = renderizar(template, {
+    pagina_html = renderizar(template, {
         "titulo": job['nome'],
         "schema": schema,
         "caminho_assets": "../../assets",
@@ -90,7 +92,7 @@ def gerarPaginaJob(schema, job):
         "conteudo": conteudo
     })
 
-    salvarArquivo(f"output/{schema}/jobs/{job['nome'].lower()}.html", html)
+    salvarArquivo(f"output/{schema}/jobs/{job['nome'].lower()}.html", pagina_html)
 
 
 def gerarJobs(schema_data):

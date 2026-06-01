@@ -95,7 +95,7 @@ def gerarPaginaTrigger(schema, trigger):
 
     <div class="card">
         <h3>Código Fonte</h3>
-        <pre>{codigo_fonte}</pre>
+        <pre><code class="language-sql">{codigo_fonte}</code></pre>
     </div>
     """
 

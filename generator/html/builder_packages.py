@@ -127,12 +127,12 @@ def gerarPaginaPackage(schema, package):
 
     <div class="card">
         <h3>Header</h3>
-        <pre>{header_fonte}</pre>
+        <pre><code class="language-sql">{header_fonte}</code></pre>
     </div>
 
     <div class="card">
         <h3>Body</h3>
-        <pre>{body_fonte}</pre>
+        <pre><code class="language-sql">{body_fonte}</code></pre>
     </div>
     """
 
