@@ -93,3 +93,38 @@ document.addEventListener("DOMContentLoaded", function () {
         th.addEventListener("click", () => ordenarTabela(index));
     });
 });
+
+function toggleDarkMode() {
+    const body = document.body;
+    const btn = document.getElementById("btnDarkMode");
+
+    body.classList.toggle("dark");
+
+    if (body.classList.contains("dark")) {
+        btn.textContent = "Modo Claro";
+        localStorage.setItem("darkMode", "true");
+    } else {
+        btn.textContent = "Modo Escuro";
+        localStorage.setItem("darkMode", "false");
+    }
+}
+
+// mantém preferência ao navegar entre páginas
+document.addEventListener("DOMContentLoaded", function () {
+    if (localStorage.getItem("darkMode") === "true") {
+        document.body.classList.add("dark");
+        const btn = document.getElementById("btnDarkMode");
+        if (btn) btn.textContent = "Modo Claro";
+    }
+
+    // inicializa ordenação
+    const tabela = document.getElementById("tabelaLista");
+    if (!tabela) return;
+
+    const headers = tabela.getElementsByTagName("th");
+    Array.from(headers).forEach((th, index) => {
+        th.style.cursor = "pointer";
+        th.title = "Clique para ordenar";
+        th.addEventListener("click", () => ordenarTabela(index));
+    });
+});

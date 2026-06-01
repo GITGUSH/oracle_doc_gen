@@ -284,3 +284,68 @@ nav ul li a:hover {
 .tag:hover {
     opacity: 0.8;
 }
+
+/* Modo escuro */
+body.dark {
+    background: #0D1117;
+    color: #C9D1D9;
+}
+
+body.dark .content-header {
+    background: #161B22;
+    border-bottom-color: #30363D;
+}
+
+body.dark .content-header h2 {
+    color: #58A6FF;
+}
+
+body.dark .breadcrumb a {
+    color: #58A6FF;
+}
+
+body.dark .card {
+    background: #161B22;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+body.dark .card h3 {
+    color: #58A6FF;
+    border-bottom-color: #58A6FF;
+}
+
+body.dark table {
+    background: #161B22;
+}
+
+body.dark thead {
+    background: #0D1B4B;
+}
+
+body.dark tbody tr:nth-child(even) {
+    background: #1C2128;
+}
+
+body.dark tbody tr:hover {
+    background: #1F2937;
+}
+
+body.dark tbody td {
+    border-bottom-color: #30363D;
+    color: #C9D1D9;
+}
+
+body.dark .search-box {
+    background: #161B22;
+    border-color: #30363D;
+    color: #C9D1D9;
+}
+
+body.dark .search-box:focus {
+    border-color: #58A6FF;
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.2);
+}
+
+body.dark .content {
+    background: #0D1117;
+}
