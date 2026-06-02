@@ -43,7 +43,7 @@ def gerarListaIndexes(schema_data):
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
         "active_indexes": "active",
-        "breadcrumb": "<a href='../..'>Início</a> › Indexes",
+        "breadcrumb": f"<a href='../../index_{schema}.html'>Início</a> › Indexes",
         "conteudo": conteudo
     })
 
@@ -109,7 +109,7 @@ def gerarPaginaTabelaIndexes(schema, tabela, indexes):
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
         "active_indexes": "active",
-        "breadcrumb": f"<a href='../..'>Início</a> › <a href='index.html'>Indexes</a> › {tabela}",
+        "breadcrumb": f"<a href='../../index_{schema}.html'>Início</a> › <a href='index.html'>Indexes</a> › {tabela}",
         "conteudo": conteudo
     })
 

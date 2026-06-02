@@ -41,7 +41,7 @@ def gerarListaFunctions(schema_data):
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
         "active_functions": "active",
-        "breadcrumb": "<a href='../..'>Início</a> › Functions",
+        "breadcrumb": f"<a href='../../index_{schema}.html'>Início</a> › Functions",
         "conteudo": conteudo
     })
 
@@ -130,7 +130,7 @@ def gerarPaginaFunction(schema, function):
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
         "active_functions": "active",
-        "breadcrumb": f"<a href='../..'>Início</a> › <a href='index.html'>Functions</a> › {function['nome']}",
+        "breadcrumb": f"<a href='../../index_{schema}.html'>Início</a> › <a href='index.html'>Functions</a> › {function['nome']}",
         "conteudo": conteudo
     })
 

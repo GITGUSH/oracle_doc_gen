@@ -43,7 +43,7 @@ def gerarListaTriggers(schema_data):
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
         "active_triggers": "active",
-        "breadcrumb": "<a href='../..'>Início</a> › Triggers",
+        "breadcrumb": f"<a href='../../index_{schema}.html'>Início</a> › Triggers",
         "conteudo": conteudo
     })
 
@@ -106,7 +106,7 @@ def gerarPaginaTrigger(schema, trigger):
         "caminho_assets": "../../assets",
         "caminho_raiz": "../..",
         "active_triggers": "active",
-        "breadcrumb": f"<a href='../..'>Início</a> › <a href='index.html'>Triggers</a> › {trigger['nome']}",
+        "breadcrumb": f"<a href='../../index_{schema}.html'>Início</a> › <a href='index.html'>Triggers</a> › {trigger['nome']}",
         "conteudo": conteudo
     })
 
