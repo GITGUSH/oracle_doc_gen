@@ -295,6 +295,17 @@ nav ul li a:hover {
     opacity: 0.8;
 }
 
+#btnDarkMode {
+    margin-top: 10px;
+    background: transparent;
+    border: 1px solid #4FC3F7;
+    color: #4FC3F7;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
 /* Modo escuro */
 body.dark {
     background: #1A1F2E;
