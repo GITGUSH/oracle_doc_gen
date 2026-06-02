@@ -1,4 +1,5 @@
 from generator.html.builder import lerTemplate, renderizar, salvarArquivo
+import config 
 
 def gerarIndex(schema_data):
     schema = schema_data["schema"]
@@ -104,5 +105,5 @@ def gerarIndex(schema_data):
         "breadcrumb": "Início",
         "conteudo": conteudo
     })
-    salvarArquivo("output/index.html", html)
+    salvarArquivo(f"output/index_{config.SCHEMA}.html", html)
     print("index.html gerado.")
