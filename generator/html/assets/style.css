@@ -86,6 +86,12 @@ nav ul li a:hover {
     overflow-x: hidden;
 }
 
+.puml {
+    cursor: pointer; 
+    color: #1E2761; 
+    font-weight: bold;
+}
+
 /* Tabelas */
 table {
     width: 100%;
@@ -302,6 +308,12 @@ body.dark .content-header {
 
 body.dark .content-header h2 {
     color: #CADCFC;
+}
+
+body.dark .puml {
+    cursor: pointer; 
+    color: #A78BFA; 
+    font-weight: bold;
 }
 
 body.dark .breadcrumb {

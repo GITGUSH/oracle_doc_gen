@@ -128,7 +128,7 @@ def gerarPaginaTabela(schema, tabela, todas_tabelas):
             <img src="{url_diagrama}" alt="Diagrama {tabela['nome']}" style="max-width: 100%;">
         </div>
         <details style="margin-top: 16px;">
-            <summary style="cursor: pointer; color: #1E2761; font-weight: bold;">Ver código PlantUML</summary>
+            <summary class="puml">Ver código PlantUML</summary>
             <pre style="margin-top: 12px;">{codigo_puml}</pre>
         </details>
     </div>
