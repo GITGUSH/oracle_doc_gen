@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oracle Doc Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 480px;
+            padding: 20px;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h1 {
+            font-size: 24px;
+            color: #1E2761;
+        }
+
+        .login-header p {
+            color: #888;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 4px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4FC3F7;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background: #1E2761;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #2A3B7B;
+        }
+
+        .erro {
+            background: #FEE2E2;
+            color: #991B1B;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 16px;
+        }
+
+        .salvar-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .conexoes-salvas {
+            margin-top: 30px;
+        }
+
+        .conexoes-salvas h3 {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .conexao-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+        }
+
+        .conexao-item span {
+            font-size: 13px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .conexao-acoes {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-usar {
+            padding: 4px 12px;
+            background: #1E2761;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-deletar {
+            padding: 4px 12px;
+            background: #FEE2E2;
+            color: #991B1B;
+            border: none;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Oracle Doc Generator</h1>
+            <p>Conecte ao banco para visualizar a documentação em tempo real</p>
+        </div>
+
+        {% if erro %}
+        <div class="erro">{{ erro }}</div>
+        {% endif %}
+
+        <div class="card">
+            <form method="POST" action="/conectar">
+                <div class="form-group">
+                    <label>Nome da conexão</label>
+                    <input type="text" name="nome" placeholder="Ex: Desenvolvimento">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Host</label>
+                        <input type="text" name="host" required>
+                    </div>
+                    <div class="form-group" style="max-width: 100px;">
+                        <label>Porta</label>
+                        <input type="text" name="porta" value="1521" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Service Name</label>
+                    <input type="text" name="service" placeholder="ORCL" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Usuário</label>
+                        <input type="text" name="usuario" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Senha</label>
+                        <input type="password" name="senha" required>
+                    </div>
+                </div>
+                <div class="salvar-row">
+                    <input type="checkbox" name="salvar" id="salvar" value="1">
+                    <label for="salvar">Salvar esta conexão</label>
+                </div>
+                <button type="submit" class="btn-primary">Conectar</button>
+            </form>
+        </div>
+
+        {% if conexoes %}
+        <div class="conexoes-salvas">
+            <h3>Conexões salvas</h3>
+            {% for nome, dados in conexoes.items() %}
+            <div class="conexao-item">
+                <span>{{ nome }}</span>
+                <div class="conexao-acoes">
+                    <a href="/usar/{{ nome }}" class="btn-usar">Usar</a>
+                    <a href="/deletar/{{ nome }}" class="btn-deletar">Remover</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

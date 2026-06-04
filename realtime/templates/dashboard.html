@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard — {{ session.schema }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1>{{ session.schema }}</h1>
+            <p>Documentação Oracle</p>
+            <p style="font-size: 10px; color: #718096; margin-top: 4px;">{{ session.nome }}</p>
+            <button onclick="toggleDarkMode()" id="btnDarkMode">Modo Escuro</button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/dashboard">Início</a></li>
+                <li><a href="/tables">Tabelas</a></li>
+                <li><a href="/views">Views</a></li>
+                <li><a href="/procedures">Procedures</a></li>
+                <li><a href="/functions">Functions</a></li>
+                <li><a href="/packages">Packages</a></li>
+                <li><a href="/triggers">Triggers</a></li>
+                <li><a href="/sequences">Sequences</a></li>
+                <li><a href="/indexes">Indexes</a></li>
+                <li><a href="/synonyms">Synonyms</a></li>
+                <li><a href="/jobs">Jobs</a></li>
+            </ul>
+        </nav>
+        <div style="padding: 16px; margin-top: auto;">
+            <a href="/desconectar" style="color: #A0AEC0; font-size: 12px; text-decoration: none;">Desconectar</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="content-header">
+            <h2>Documentação — {{ session.schema }}</h2>
+        </div>
+        <div class="content-body">
+            <div class="card">
+                <h3>Conexão Ativa</h3>
+                <table>
+                    <tbody>
+                        <tr><td><strong>Schema</strong></td><td>{{ session.schema }}</td></tr>
+                        <tr><td><strong>Host</strong></td><td>{{ session.host }}</td></tr>
+                        <tr><td><strong>Service</strong></td><td>{{ session.service }}</td></tr>
+                        <tr><td><strong>Usuário</strong></td><td>{{ session.usuario }}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="../static/search.js"></script>
+</body>
+</html>

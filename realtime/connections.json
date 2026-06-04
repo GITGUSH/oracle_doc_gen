@@ -1,0 +1,9 @@
+{
+    "BMCHELP": {
+        "host": "172.16.20.59",
+        "porta": 1521,
+        "service": "ORCL",
+        "usuario": "BMCHELP",
+        "senha": "bmc619489"
+    }
+}
