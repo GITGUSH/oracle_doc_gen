@@ -11,3 +11,4 @@ __pycache__/
 .idea/
 
 realtime/connections.json
+realtime/.env

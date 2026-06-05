@@ -2,22 +2,29 @@ from flask import Flask, render_template, request, redirect, url_for, session
 import json
 import os
 import oracledb
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = "oracle_doc_gen_secret"
+app.secret_key = os.getenv("SECRET_KEY")
+connections_file = os.getenv("CONNECTIONS_FILE")
 
-CONNECTIONS_FILE = "connections.json"
+if not app.secret_key:
+    raise RuntimeError("SECRET_KEY não configurada")
 
+if not connections_file:
+    raise RuntimeError("CONNECTIONS_FILE não configurado")
 
 def carregarConexoes():
-    if not os.path.exists(CONNECTIONS_FILE):
+    if not os.path.exists(connections_file):
         return {}
-    with open(CONNECTIONS_FILE, "r") as f:
+    with open(connections_file, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
 def salvarConexoes(conexoes):
-    with open(CONNECTIONS_FILE, "w") as f:
+    with open(connections_file, "w", encoding="utf-8") as f:
         json.dump(conexoes, f, indent=4)
 
 
@@ -124,4 +131,4 @@ def desconectar():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    app.run(debug=False, port=5001)
