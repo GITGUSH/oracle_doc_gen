@@ -65,6 +65,35 @@
             </div>
 
             <div class="card">
+            <h3>Objetos Inválidos</h3>
+            {% if invalidos %}
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>                   
+                    {% for obj in invalidos %}
+                    <tr>
+                        <td>{{ obj.nome }}</td>
+                        <td>{{ obj.tipo }}</td>
+                        <td>
+                            <span class="tag tag-invalid">INVALID</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+                <p style="color: #065F46; font-weight: bold;">Nenhum objeto invalido encontrado.</p>
+            {% endif %}
+            </div>
+
+            <div class="card">
                 <h3>Conexão Ativa</h3>
                 <table>
                     <tbody>
