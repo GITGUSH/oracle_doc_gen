@@ -3,6 +3,20 @@ import json
 import os
 import oracledb
 from dotenv import load_dotenv
+import sys
+import os
+from extractor.tables import extrairTabelas
+from extractor.views import extrairViews
+from extractor.procedures import extrairProcedures
+from extractor.functions import extrairFunctions
+from extractor.packages import extrairPackages
+from extractor.triggers import extrairTriggers
+from extractor.sequences import extrairSequences
+from extractor.indexes import extrairIndexes
+from extractor.synonyms import extrairSynonyms
+from extractor.jobs import extrairJobs
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 load_dotenv()
 
@@ -39,6 +53,13 @@ def testarConexao(host, porta, service, usuario, senha):
         return True
     except Exception as e:
         return str(e)
+    
+def conectarBanco():
+    return oracledb.connect(
+        user=session["usuario"],
+        password=session["senha"],
+        dsn=f"{session['host']}:{session['porta']}/{session['service']}"
+    )
 
 
 @app.route("/")
@@ -121,8 +142,27 @@ def deletarConexao(nome):
 def dashboard():
     if "usuario" not in session:
         return redirect(url_for("index"))
-    return render_template("dashboard.html", session=session)
 
+    con = conectarBanco()
+    cursor = con.cursor()
+
+    resumo = {
+        "tabelas":    len(extrairTabelas(cursor)),
+        "views":      len(extrairViews(cursor)),
+        "procedures": len(extrairProcedures(cursor)),
+        "functions":  len(extrairFunctions(cursor)),
+        "packages":   len(extrairPackages(cursor)),
+        "triggers":   len(extrairTriggers(cursor)),
+        "sequences":  len(extrairSequences(cursor)),
+        "indexes":    len(extrairIndexes(cursor)),
+        "synonyms":   len(extrairSynonyms(cursor)),
+        "jobs":       len(extrairJobs(cursor)),
+    }
+
+    cursor.close()
+    con.close()
+
+    return render_template("dashboard.html", session=session, resumo=resumo)
 
 @app.route("/desconectar")
 def desconectar():

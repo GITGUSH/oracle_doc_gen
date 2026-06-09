@@ -16,7 +16,7 @@
         </div>
         <nav>
             <ul>
-                <li><a href="/dashboard">Início</a></li>
+                <li><a href="/dashboard" class="active">Início</a></li>
                 <li><a href="/tables">Tabelas</a></li>
                 <li><a href="/views">Views</a></li>
                 <li><a href="/procedures">Procedures</a></li>
@@ -37,13 +37,37 @@
     <div class="content">
         <div class="content-header">
             <h2>Documentação — {{ session.schema }}</h2>
+            <div class="breadcrumb">Início</div>
         </div>
         <div class="content-body">
+            <div class="card">
+                <h3>Resumo do Schema {{ session.schema }}</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Objeto</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Tabelas</td><td>{{ resumo.tabelas }}</td></tr>
+                        <tr><td>Views</td><td>{{ resumo.views }}</td></tr>
+                        <tr><td>Procedures</td><td>{{ resumo.procedures }}</td></tr>
+                        <tr><td>Functions</td><td>{{ resumo.functions }}</td></tr>
+                        <tr><td>Packages</td><td>{{ resumo.packages }}</td></tr>
+                        <tr><td>Triggers</td><td>{{ resumo.triggers }}</td></tr>
+                        <tr><td>Sequences</td><td>{{ resumo.sequences }}</td></tr>
+                        <tr><td>Indexes</td><td>{{ resumo.indexes }}</td></tr>
+                        <tr><td>Synonyms</td><td>{{ resumo.synonyms }}</td></tr>
+                        <tr><td>Jobs</td><td>{{ resumo.jobs }}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
             <div class="card">
                 <h3>Conexão Ativa</h3>
                 <table>
                     <tbody>
-                        <tr><td><strong>Schema</strong></td><td>{{ session.schema }}</td></tr>
                         <tr><td><strong>Host</strong></td><td>{{ session.host }}</td></tr>
                         <tr><td><strong>Service</strong></td><td>{{ session.service }}</td></tr>
                         <tr><td><strong>Usuário</strong></td><td>{{ session.usuario }}</td></tr>
