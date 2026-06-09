@@ -61,6 +61,20 @@ def conectarBanco():
         dsn=f"{session['host']}:{session['porta']}/{session['service']}"
     )
 
+def carregarObjetos(cursor):
+    return {
+        "tabelas": extrairTabelas(cursor),
+        "views": extrairViews(cursor),
+        "procedures": extrairProcedures(cursor),
+        "functions": extrairFunctions(cursor),
+        "packages": extrairPackages(cursor),
+        "triggers": extrairTriggers(cursor),
+        "sequences": extrairSequences(cursor),
+        "indexes": extrairIndexes(cursor),
+        "synonyms": extrairSynonyms(cursor),
+        "jobs": extrairJobs(cursor),
+    }
+
 
 @app.route("/")
 def index():
@@ -142,53 +156,57 @@ def deletarConexao(nome):
 def dashboard():
     if "usuario" not in session:
         return redirect(url_for("index"))
+    
+    con = None
+    cursor = None
 
-    con = conectarBanco()
-    cursor = con.cursor()
+    try:
+        con = conectarBanco()
+        cursor = con.cursor()
 
-    resumo = {
-        "tabelas":    len(extrairTabelas(cursor)),
-        "views":      len(extrairViews(cursor)),
-        "procedures": len(extrairProcedures(cursor)),
-        "functions":  len(extrairFunctions(cursor)),
-        "packages":   len(extrairPackages(cursor)),
-        "triggers":   len(extrairTriggers(cursor)),
-        "sequences":  len(extrairSequences(cursor)),
-        "indexes":    len(extrairIndexes(cursor)),
-        "synonyms":   len(extrairSynonyms(cursor)),
-        "jobs":       len(extrairJobs(cursor)),
-    }
+        objetos = carregarObjetos(cursor)
 
-    invalidos = []
+        resumo = {
+            "tabelas":    len(objetos["tabelas"]),
+            "views":      len(objetos["views"]),
+            "procedures": len(objetos["procedures"]),
+            "functions":  len(objetos["functions"]),
+            "packages":   len(objetos["packages"]),
+            "triggers":   len(objetos["triggers"]),
+            "sequences":  len(objetos["sequences"]),
+            "indexes":    len(objetos["indexes"]),
+            "synonyms":   len(objetos["synonyms"]),
+            "jobs":       len(objetos["jobs"]),
+        }
 
-    for t in resumo["tabelas"]:
-        if t["status"] != "VALID":
-            invalidos.append({"nome": t["nome"], "tipo": "Tabela"})
+        invalidos = []
 
-    for v in resumo["views"]:
-        if v.get("status", "VALID") != "VALID":
-            invalidos.append({"nome": v["nome"], "tipo": "View"})
+        for v in objetos["views"]:
+            if v.get("status", "VALID") != "VALID":
+                invalidos.append({"nome": v["nome"], "tipo": "View"})
 
-    for p in resumo["procedures"]:
-        if p["status"] != "VALID":
-            invalidos.append({"nome": p["nome"], "tipo": "Procedure"})
+        for p in objetos["procedures"]:
+            if p["status"] != "VALID":
+                invalidos.append({"nome": p["nome"], "tipo": "Procedure"})
 
-    for f in resumo["functions"]:
-        if f["status"] != "VALID":
-            invalidos.append({"nome": f["nome"], "tipo": "Function"})
+        for f in objetos["functions"]:
+            if f["status"] != "VALID":
+                invalidos.append({"nome": f["nome"], "tipo": "Function"})
 
-    for p in resumo["packages"]:
-        if p["status"] != "VALID":
-            invalidos.append({"nome": p["nome"], "tipo": "Package"})
+        for p in objetos["packages"]:
+            if p["status"] != "VALID":
+                invalidos.append({"nome": p["nome"], "tipo": "Package"})
 
-    for t in resumo["triggers"]:
-        if t["status"] != "ENABLED":
-            invalidos.append({"nome": t["nome"], "tipo": "Trigger"})
+        for t in objetos["triggers"]:
+            if t["status"] != "ENABLED":
+                invalidos.append({"nome": t["nome"], "tipo": "Trigger"})
+    finally:
+        if cursor:
+            cursor.close()
+        if con:
+            con.close()
 
-    cursor.close()
-    con.close()
-
-    return render_template("dashboard.html", session=session, resumo=resumo)
+    return render_template("dashboard.html", session=session, resumo=resumo, invalidos=invalidos)
 
 @app.route("/desconectar")
 def desconectar():
