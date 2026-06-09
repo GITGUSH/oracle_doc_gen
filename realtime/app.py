@@ -159,6 +159,32 @@ def dashboard():
         "jobs":       len(extrairJobs(cursor)),
     }
 
+    invalidos = []
+
+    for t in resumo["tabelas"]:
+        if t["status"] != "VALID":
+            invalidos.append({"nome": t["nome"], "tipo": "Tabela"})
+
+    for v in resumo["views"]:
+        if v.get("status", "VALID") != "VALID":
+            invalidos.append({"nome": v["nome"], "tipo": "View"})
+
+    for p in resumo["procedures"]:
+        if p["status"] != "VALID":
+            invalidos.append({"nome": p["nome"], "tipo": "Procedure"})
+
+    for f in resumo["functions"]:
+        if f["status"] != "VALID":
+            invalidos.append({"nome": f["nome"], "tipo": "Function"})
+
+    for p in resumo["packages"]:
+        if p["status"] != "VALID":
+            invalidos.append({"nome": p["nome"], "tipo": "Package"})
+
+    for t in resumo["triggers"]:
+        if t["status"] != "ENABLED":
+            invalidos.append({"nome": t["nome"], "tipo": "Trigger"})
+
     cursor.close()
     con.close()
 
