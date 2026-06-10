@@ -18,14 +18,15 @@ def tablesIndex():
 
         objetos = carregarObjetos(cursor)
 
-        tabelas = []
-        for t in objetos["tabelas"]:
-            tabelas.append({
+        tabelas = [
+            {
                 "nome": t["nome"],
                 "registros": t.get("registros", "-"),
                 "colunas": len(t["colunas"]),
                 "status": t.get("status", "VALID")
-            })
+            }
+            for t in objetos["tabelas"]
+        ]
 
     finally:
         if cursor:
