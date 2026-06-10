@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, session
 from services.conexao_service import conectarBanco
-from services.objeto_service import carregarObjetos, gerarCodigoPuml, gerarUrlDiagrama
+from services.objeto_service import carregarTabelas
 
 tables_bp = Blueprint("tables", __name__)
 
@@ -16,7 +16,7 @@ def tablesIndex():
         con = conectarBanco()
         cursor = con.cursor()
 
-        objetos = carregarObjetos(cursor)
+        objeto = carregarTabelas(cursor)
 
         tabelas = [
             {
@@ -25,7 +25,7 @@ def tablesIndex():
                 "colunas": len(t["colunas"]),
                 "status": t.get("status", "VALID")
             }
-            for t in objetos["tabelas"]
+            for t in objeto["tabelas"]
         ]
 
     finally:
