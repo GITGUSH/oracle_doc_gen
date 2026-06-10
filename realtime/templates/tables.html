@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard — {{ session.schema }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1>{{ session.schema }}</h1>
+            <p>Documentação Oracle</p>
+            <p style="font-size: 10px; color: #718096; margin-top: 4px;">{{ session.nome }}</p>
+            <button onclick="toggleDarkMode()" id="btnDarkMode">Modo Escuro</button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/dashboard" class="">Início</a></li>
+                <li><a href="/tables" class="active">Tabelas</a></li>
+                <li><a href="/views" class="">Views</a></li>
+                <li><a href="/procedures" class="">Procedures</a></li>
+                <li><a href="/functions" class="">Functions</a></li>
+                <li><a href="/packages" class="">Packages</a></li>
+                <li><a href="/triggers" class="">Triggers</a></li>
+                <li><a href="/sequences" class="">Sequences</a></li>
+                <li><a href="/indexes" class="">Indexes</a></li>
+                <li><a href="/synonyms" class="">Synonyms</a></li>
+                <li><a href="/jobs" class="">Jobs</a></li>
+            </ul>
+        </nav>
+        <div style="padding: 16px; margin-top: auto;">
+            <a href="/desconectar" style="color: #A0AEC0; font-size: 12px; text-decoration: none;">Desconectar</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="content-header">
+            <h2>Tabelas</h2>
+            <div class="breadcrumb"><a href='/dashboard'>Início</a> › Tabelas</div>
+        </div>
+        <div class="content-body">
+            
+    <input type="text" class="search-box" placeholder="Buscar tabela..." onkeyup="filtrarTabela(this)">
+    <table id="tabelaLista">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Registros</th>
+                <th>Colunas</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tabela in tabelas %}
+            <tr>
+                <td><a href="tables/table_content.html">{{ tabela.nome }}</a></td>
+                <td>{{ tabela.registros }}</td>
+                <td>{{ tabela.colunas }}</td>
+                <td>{{ tabela.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+        </div>
+
+    </div>
+    <script src="../static/search.js"></script>
+</body>
+</html>
+    

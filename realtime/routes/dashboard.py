@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session
+from flask import Blueprint, render_template, redirect, url_for, session
 from services.conexao_service import conectarBanco
 from services.objeto_service import carregarObjetos
 
