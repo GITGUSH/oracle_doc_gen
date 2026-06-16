@@ -25,7 +25,7 @@ def tablesIndex():
                 "colunas": len(t["colunas"]),
                 "status": t.get("status", "VALID")
             }
-            for t in objeto["tabelas"]
+            for t in objeto
         ]
 
     finally:
